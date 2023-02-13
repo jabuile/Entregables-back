@@ -1,5 +1,5 @@
 {
-  "type":"module",
+  "type": "module",
   "name": "entregables-back",
   "version": "1.0.0",
   "description": "",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/jabuile/Entregables-back#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
   }
 }

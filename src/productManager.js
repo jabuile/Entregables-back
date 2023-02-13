@@ -1,10 +1,11 @@
-const fs = require('fs');
+
+import fs from 'fs';
 
 
-class ProductManager {
-    constructor(products, path) {
-      this.products = products;
-      this.path = path;
+ class ProductManager {
+    constructor() {
+      this.products = [];
+      this.path = "./";
     }
   
     addProduct(product) {
@@ -82,7 +83,7 @@ class ProductManager {
   }
    
   
-  class Product {
+  export class Product {
     constructor(title, description, price, thumbnail, code, stock, id ) {
       this.title = title;
       this.description = description;
@@ -94,40 +95,7 @@ class ProductManager {
     }
   }
   
-  // Se creará una instancia de la clase “ProductManager”
-let products =[];
-let productM = new ProductManager(products,"C:\\Users\\jabui\\OneDrive\\Escritorio\\primer entregable back\\entregable_1_back\\");
+  const productM = new ProductManager();
+  export default productM;
 
-// Se llamará “getProducts” recién creada la instancia, debe devolver un arreglo vacío []
-products = productM.getProducts ();
-console.log("xxxxx"+ products);
-// Se llamará al método “addProduct” con los campos:
-// title: “producto prueba”
-// description:”Este es un producto prueba”
-// price:200,
-// thumbnail:”Sin imagen”
-// code:”abc123”,
-// stock:25
   
-let objProduct =new Product ("producto prueba","Este es un producto prueba", 200, "sin imagen", "abc123", 25,null );
-let id=productM.addProduct(objProduct);
-console.log(id);
-
-// El objeto debe agregarse satisfactoriamente con un id generado automáticamente SIN REPETIRSE
-// Se llamará el método “getProducts” nuevamente, esta vez debe aparecer el producto recién agregado
-
-products = productM.getProducts ();
-console.log("xxxxx"+ products);
-
-// Se llamará al método “addProduct” con los mismos campos de arriba, debe arrojar un error porque el código estará repetido.
-objProduct2 =new Product ("producto prueba","Este es un producto prueba", 200, "sin imagen", "abc123", 25,null );
-id=productM.addProduct(objProduct2);
-objProduct2.id = id;
-console.log(id);
-// Se evaluará que getProductById devuelva error si no encuentra el producto o el producto en caso de encontrarlo
-
-objProduct.title = "Prod";
-//console.log(JSON.stringify(products));
-
-productM.updateProduct(objProduct);
-productM.deleteProduct(objProduct.id);
