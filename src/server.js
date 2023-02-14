@@ -1,12 +1,16 @@
 var express = require('express');
-var productM = require('./productManager.js');
+var ProductManager = require('./productManager.js');
+var Product = require('./product.js');
 
 const app = express();
+
+var productM = new ProductManager();
 
 app.use(express.static("public"));
 // Se mandará a llamar desde el navegador a la url http://localhost:8080/products?limit=5 , eso debe devolver sólo los primeros 5 de los 10 productos.
 //  Se mandará a llamar desde el navegador a la url http://localhost:8080/products sin query, eso debe devolver todos los 10 productos.
 app.get('/products', (req, res) => {
+    var productM = new ProductManager();
     let listado = productM.getProducts();
     let limit = req.query.limit;
     if (limit === undefined) {

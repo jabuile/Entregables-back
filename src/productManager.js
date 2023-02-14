@@ -1,4 +1,5 @@
-var fs = require('fs');
+const fs = require('fs');
+const Product = require('./product.js');
 
 class ProductManager {
   constructor() {
@@ -80,19 +81,4 @@ class ProductManager {
 
 }
 
-
-class Product {
-  constructor(title, description, price, thumbnail, code, stock, id) {
-    this.title = title;
-    this.description = description;
-    this.price = price;
-    this.thumbnail = thumbnail;
-    this.stock = stock;
-    this.code = code;
-    this.id = id;
-  }
-}
-
-const productM = new ProductManager();
-
-
+module.exports = ProductManager;
