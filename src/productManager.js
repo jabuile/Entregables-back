@@ -3,11 +3,11 @@ const Product = require('./product.js');
 
 class ProductManager {
   constructor() {
-    this.products = [];
     this.path = "./";
   }
 
   addProduct(product) {
+    let products=this.getProductsFromFile();
     if (
       product.title != "" &&
       product.description != "" &&
@@ -16,8 +16,8 @@ class ProductManager {
       product.stock != "" &&
       product.code != ""
     ) {
-      if (this.products.length > 0) {
-        for (let productB of this.products) {
+      if (products.length > 0) {
+        for (let productB of products) {
           if (product.code === productB.code) {
             return null;
           }
@@ -25,19 +25,32 @@ class ProductManager {
       }
       let id = performance.now();
       product.id = id;
-      this.products.push(product);
+      products.push(product);
+      this.sendProductsToFile(products);
       return id;
     }
     return null;
   }
 
   getProducts() {
-    return this.products;
+    return this.getProductsFromFile();
+  }
+
+  getProductsFromFile() {
+    if (fs.existsSync(this.path+"Productos.txt"))
+      return JSON.parse(fs.readFileSync(this.path+"Productos.txt"));
+    else
+      return [];
+  }
+
+  sendProductsToFile(products) {
+    fs.writeFileSync(this.path + "Productos.txt", JSON.stringify(products));
   }
 
   getProductById(id) {
-    const found = this.products.find((p) => (p.id = id));
-    if (found === null) {
+    let products=this.getProductsFromFile();
+    const found = products.find(p => p.id == id);
+    if (found === undefined) {
       console.log("not found");
     }
     return found;
@@ -50,10 +63,8 @@ class ProductManager {
   debe eliminar el producto que tenga ese id en el archivo.
  */
   updateProduct(product) {
-    console.log(JSON.stringify(product));
-
-    console.log(JSON.stringify(products));
-    for (let productB of this.products) {
+    let products=this.getProductsFromFile();
+    for (let productB of products) {
       if (product.id === productB.id) {
 
         productB.description = product.description;
@@ -62,21 +73,17 @@ class ProductManager {
         productB.thumbnail = product.thumbnail;
         productB.stock = product.stock;
         productB.code = product.code;
-        fs.writeFileSync(this.path + "Productos.txt", JSON.stringify(products));
+        this.sendProductsToFile(products);
 
         return;
       }
 
     }
-
-    console.log("producto no encontrados");
   }
 
   deleteProduct(id) {
-
-    this.products = this.products.filter((p) => (p.id != id));
-    console.log(JSON.stringify(this.products));
-    fs.writeFileSync(this.path + "Productos.txt", JSON.stringify(this.products));
+    products = products.filter((p) => (p.id != id));
+    this.sendProductsToFile(products);
   }
 
 }

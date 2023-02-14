@@ -18,26 +18,20 @@ app.get('/products', (req, res) => {
     } else {
         res.send(JSON.stringify(listado.slice(0, limit)));
     }
-
-
 });
 
 // Se mandará a llamar desde el navegador a la url http://localhost:8080/products/2, eso debe devolver sólo el producto con id=2.
 // Se mandará a llamar desde el navegador a la url http://localhost:8080/products/34123123, al no existir el id del producto, debe devolver un objeto con un error indicando que el producto no existe.
 app.get('/products/:id', (req, res) => {
     let product = productM.getProductById(req.params.id);
-    if (product === null) {
+    if (product === undefined) {
         res.send("producto no encontrado ");
     } else {
         res.send(JSON.stringify(product));
     }
-
 });
 
 const PORT = 8080;
 const server = app.listen(PORT, () => {
     console.log("servidor ejecutandose en el puerto: ", PORT);
 });
-
-
-
