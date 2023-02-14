@@ -1,9 +1,7 @@
-import express from 'express';
+var express = require('express');
+var productM = require('./productManager.js');
 
 const app = express();
-
-let products =[];
-let productM = new ProductManager(products,"./");
 
 app.use(express.static("public"));
 // Se mandará a llamar desde el navegador a la url http://localhost:8080/products?limit=5 , eso debe devolver sólo los primeros 5 de los 10 productos.
@@ -31,8 +29,6 @@ app.get('/products/:id', (req, res) => {
     }
     
 });
-
-
 
 const PORT=8080;
  const server=app.listen(PORT,()=>{

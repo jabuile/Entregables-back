@@ -1,6 +1,4 @@
-
-import fs from 'fs';
-
+var fs = require('fs');
 
  class ProductManager {
     constructor() {
@@ -83,7 +81,7 @@ import fs from 'fs';
   }
    
   
-  export class Product {
+  class Product {
     constructor(title, description, price, thumbnail, code, stock, id ) {
       this.title = title;
       this.description = description;
@@ -96,6 +94,5 @@ import fs from 'fs';
   }
   
   const productM = new ProductManager();
-  export default productM;
 
   
