@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Product = require('./product.js');
+const filename = "products.json";
 
 class ProductManager {
   constructor() {
@@ -37,14 +38,14 @@ class ProductManager {
   }
 
   getProductsFromFile() {
-    if (fs.existsSync(this.path+"Productos.txt"))
-      return JSON.parse(fs.readFileSync(this.path+"Productos.txt"));
+    if (fs.existsSync(this.path+filename))
+      return JSON.parse(fs.readFileSync(this.path+filename));
     else
       return [];
   }
 
   sendProductsToFile(products) {
-    fs.writeFileSync(this.path + "Productos.txt", JSON.stringify(products));
+    fs.writeFileSync(this.path + filename, JSON.stringify(products));
   }
 
   getProductById(id) {
@@ -82,6 +83,7 @@ class ProductManager {
   }
 
   deleteProduct(id) {
+    let products=this.getProductsFromFile();
     products = products.filter((p) => (p.id != id));
     this.sendProductsToFile(products);
   }
